@@ -3,6 +3,7 @@ Square = {
   	this.xCoordinate = x;
   	this.yCoordinate = y;
     this.alive = false;
+    this.nextRound = true;
   },
   create: function(x,y) {
   	var newSquare = Object.create(Square);
@@ -45,18 +46,23 @@ Board = {
     var seeds = this.checkNeighbors(element);
     if (targetSquare.alive === true) {
       if (seeds === 2 || seeds === 3) {
-        targetSquare.alive = true;
+        targetSquare.nextRound = true;
       } else {
-        targetSquare.alive = false;
+        targetSquare.nextRound = false;
       }
     }
-    if (targetSquare.alive === false && seeds === 3) {
-      targetSquare.alive = true;
+    if (targetSquare.alive === false) {
+      if (seeds === 3) {
+        targetSquare.nextRound = true;
+      } else {
+        targetSquare.nextRound = false;
+      }
     }
   },
-  globalFate: function() {
-    for(var i = 0; i < this.spaces.length; i++) {
-      this.fate[i];
+  advanceRound: function() {
+    var workingGame = this;
+    for (var i = 0; i < this.spaces.length; i++) {
+      workingGame.spaces[i].alive = workingGame.spaces[i].nextRound;
     }
   }
 };
@@ -69,22 +75,42 @@ $(document).ready(function(){
   for (var i = 0; i < rowNumber; i++) {
     $("table").append("<tr>");
     for (var j = 0; j < rowNumber; j++) {
-      $("tr").last().append("<td class=" + createCounter + ">");
+      $("tr").last().append("<td id=" + createCounter + ">");
       createCounter += 1;
     }
   }
 
   $("td").click(function(){
-    var tileNumber = parseInt($(this).attr("class"));
+    var tileNumber = parseInt($(this).attr("id"));
     $(this).addClass("alive");
     gameBoard.spaces[tileNumber].alive = true;
     console.log(gameBoard.spaces[tileNumber]);
   });
 
-  $("make-it-so").click(function(){
-    setInterval(function(){
+  var updateBlocks = function(i) {
+        if (gameBoard.spaces[i].alive === true) {
+          $("#"+i).addClass("alive");
+        }else if (gameBoard.spaces[i].alive === false) {
+          $("#"+i).removeClass("alive");
+        }
+  };
 
-    });
-  })
+  $("#make-it-so").on("click", function(){
+      for(var i = 0; i < gameBoard.spaces.length; i++) {
+        console.log(gameBoard.spaces[i]);
+        gameBoard.fate(i);
+        gameBoard.advanceRound();
+        updateBlocks(i);
+        console.log (".")
+      }
+  });
 
+  $("#randomize").on("click", function(){
+    for(var i = 0; i < gameBoard.spaces.length; i++) {
+        if (Math.random() > .5) {
+          gameBoard.spaces[i].alive = true;
+        }
+        updateBlocks(i);
+    };
+  });
 });

@@ -54,7 +54,7 @@ describe("Board", function() {
       testBoard.spaces[18].alive = true;
       testBoard.spaces[24].alive = true;
       testBoard.fate(24);
-      testBoard.spaces[24].alive.should.equal(true);
+      testBoard.spaces[24].nextRound.should.equal(true);
     });
     it("keeps a living square with 3 living neighbors alive in the next round", function(){
       var testBoard = Board.create(7);
@@ -63,7 +63,7 @@ describe("Board", function() {
       testBoard.spaces[25].alive = true;
       testBoard.spaces[24].alive = true;
       testBoard.fate(24);
-      testBoard.spaces[24].alive.should.equal(true);
+      testBoard.spaces[24].nextRound.should.equal(true);
     });
 
     it("kills a living square with more than 3 living neighbors", function(){
@@ -74,7 +74,7 @@ describe("Board", function() {
       testBoard.spaces[32].alive = true;
       testBoard.spaces[24].alive = true;
       testBoard.fate(24);
-      testBoard.spaces[24].alive.should.equal(false);
+      testBoard.spaces[24].nextRound.should.equal(false);
     });
 
     it("revives a dead square with exactly 3 living neighbors", function(){
@@ -84,7 +84,7 @@ describe("Board", function() {
       testBoard.spaces[25].alive = true;
       testBoard.spaces[24].alive = false;
       testBoard.fate(24);
-      testBoard.spaces[24].alive.should.equal(true);
+      testBoard.spaces[24].nextRound.should.equal(true);
     });
 
     it("keeps a square dead if it doesn't have 3 living neighbors", function(){
@@ -95,19 +95,7 @@ describe("Board", function() {
       testBoard.spaces[23].alive = true;
       testBoard.spaces[24].alive = false;
       testBoard.fate(24);
-      testBoard.spaces[24].alive.should.equal(false);
-    });
-  });
-  describe("globalFate", function(){
-    it("passes to the next turn for all squares", function(){
-      var testBoard = Board.create(7);
-      testBoard.spaces[17].alive = true;
-      testBoard.spaces[18].alive = true;
-      testBoard.spaces[25].alive = true;
-      testBoard.spaces[23].alive = true;
-      testBoard.spaces[24].alive = false;
-      testBoard.globalFate();
-      testBoard.spaces[24].alive.should.equal(false);
+      testBoard.spaces[24].nextRound.should.equal(false);
     });
   });
 });
