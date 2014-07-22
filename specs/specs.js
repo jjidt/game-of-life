@@ -34,4 +34,11 @@ describe("Board", function() {
       Board.isPrototypeOf(testBoard).should.equal(true);
     });
   });
+  describe("checkNeighbors", function() {
+    it("checks neighboring squares to determine how many of them are living", function() {
+      var testBoard = Board.create(7);
+      testBoard.spaces[18].alive = true;
+      testBoard.checkNeighbors(25).should.equal(1);
+    });
+  })
 });
