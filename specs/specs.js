@@ -98,4 +98,16 @@ describe("Board", function() {
       testBoard.spaces[24].alive.should.equal(false);
     });
   });
+  describe("globalFate", function(){
+    it("passes to the next turn for all squares", function(){
+      var testBoard = Board.create(7);
+      testBoard.spaces[17].alive = true;
+      testBoard.spaces[18].alive = true;
+      testBoard.spaces[25].alive = true;
+      testBoard.spaces[23].alive = true;
+      testBoard.spaces[24].alive = false;
+      testBoard.globalFate();
+      testBoard.spaces[24].alive.should.equal(false);
+    });
+  });
 });

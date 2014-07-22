@@ -1,5 +1,17 @@
+table {
+  height: 900px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
 td {
 	border: 1px solid black;
-	width: 30px;
-	height: 30px;
+  height: 5px;
+  width: 5px;
+  margin: 0;
+  padding: 0;
+}
+
+.alive {
+  background-color: black;
 }

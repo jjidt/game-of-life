@@ -53,5 +53,38 @@ Board = {
     if (targetSquare.alive === false && seeds === 3) {
       targetSquare.alive = true;
     }
+  },
+  globalFate: function() {
+    for(var i = 0; i < this.spaces.length; i++) {
+      this.fate[i];
+    }
   }
-}
+};
+
+$(document).ready(function(){
+  var rowNumber = 21;
+  var gameBoard = Board.create(rowNumber);
+  var createCounter = 0;
+
+  for (var i = 0; i < rowNumber; i++) {
+    $("table").append("<tr>");
+    for (var j = 0; j < rowNumber; j++) {
+      $("tr").last().append("<td class=" + createCounter + ">");
+      createCounter += 1;
+    }
+  }
+
+  $("td").click(function(){
+    var tileNumber = parseInt($(this).attr("class"));
+    $(this).addClass("alive");
+    gameBoard.spaces[tileNumber].alive = true;
+    console.log(gameBoard.spaces[tileNumber]);
+  });
+
+  $("make-it-so").click(function(){
+    setInterval(function(){
+
+    });
+  })
+
+});
