@@ -55,6 +55,26 @@ describe("Board", function() {
       testBoard.spaces[24].alive = true;
       testBoard.fate(24);
       testBoard.spaces[24].alive.should.equal(true);
+    });
+    it("keeps a living square with 3 living neighbors alive in the next round", function(){
+      var testBoard = Board.create(7);
+      testBoard.spaces[17].alive = true;
+      testBoard.spaces[18].alive = true;
+      testBoard.spaces[25].alive = true;
+      testBoard.spaces[24].alive = true;
+      testBoard.fate(24);
+      testBoard.spaces[24].alive.should.equal(true);
+    });
+
+    it("kills a living square with more than 3 living neighbors", function(){
+      var testBoard = Board.create(7);
+      testBoard.spaces[17].alive = true;
+      testBoard.spaces[18].alive = true;
+      testBoard.spaces[25].alive = true;
+      testBoard.spaces[32].alive = true;
+      testBoard.spaces[24].alive = true;
+      testBoard.fate(24);
+      testBoard.spaces[24].alive.should.equal(false);
     })
   })
 });

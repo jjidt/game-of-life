@@ -45,7 +45,9 @@ Board = {
     var seeds = this.checkNeighbors(element);
     if (targetSquare.alive === true) {
       if (seeds === 2 || seeds === 3) {
-        targetSquare.alive === true;
+        targetSquare.alive = true;
+      } else {
+        targetSquare.alive = false;
       }
     }
   }
