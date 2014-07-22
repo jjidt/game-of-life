@@ -11,8 +11,19 @@ Square = {
 };
 
 Board = {
-  initialize: function() {
+  initialize: function(rows) {
   	this.spaces = [];
-  	for(var i = -(7-1, i <49, i++)
+    var thisBoard = this;
+    var rowHalf = (rows-1)/2;
+  	for(var i = -rowHalf; i <= rowHalf; i++) {
+      for(var j = -rowHalf; j <= rowHalf; j++) {
+        thisBoard.spaces.push(Square.create(i,j));
+      }
+    }
+  },
+  create: function(rows) {
+    var newBoard = Object.create(Board);
+    newBoard.initialize(rows);
+    return newBoard;
   }
 }
