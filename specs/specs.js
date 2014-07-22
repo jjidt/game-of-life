@@ -17,7 +17,7 @@ describe("Square", function(){
 
 describe("Board", function() {
   describe("initialize", function(){
-    it("creates an array of 49 squares when it is initialized", function() {
+    it("creates an array of squares when it is initialized with a row length parameter", function() {
       var testBoard = Object.create(Board);
       testBoard.initialize(7);
       testBoard.spaces.length.should.equal(49);
@@ -75,6 +75,27 @@ describe("Board", function() {
       testBoard.spaces[24].alive = true;
       testBoard.fate(24);
       testBoard.spaces[24].alive.should.equal(false);
-    })
-  })
+    });
+
+    it("revives a dead square with exactly 3 living neighbors", function(){
+      var testBoard = Board.create(7);
+      testBoard.spaces[17].alive = true;
+      testBoard.spaces[18].alive = true;
+      testBoard.spaces[25].alive = true;
+      testBoard.spaces[24].alive = false;
+      testBoard.fate(24);
+      testBoard.spaces[24].alive.should.equal(true);
+    });
+
+    it("keeps a square dead if it doesn't have 3 living neighbors", function(){
+      var testBoard = Board.create(7);
+      testBoard.spaces[17].alive = true;
+      testBoard.spaces[18].alive = true;
+      testBoard.spaces[25].alive = true;
+      testBoard.spaces[23].alive = true;
+      testBoard.spaces[24].alive = false;
+      testBoard.fate(24);
+      testBoard.spaces[24].alive.should.equal(false);
+    });
+  });
 });

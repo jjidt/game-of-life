@@ -50,5 +50,8 @@ Board = {
         targetSquare.alive = false;
       }
     }
+    if (targetSquare.alive === false && seeds === 3) {
+      targetSquare.alive = true;
+    }
   }
 }
