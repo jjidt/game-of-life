@@ -31,7 +31,6 @@ Board = {
     var livingNeighbors = 0;
     var currentSquare = this.spaces[element];
     this.spaces.forEach(function(square){
-      console.log(square);
       if ((Math.abs(square.xCoordinate)- Math.abs(currentSquare.xCoordinate)) <= 1 &&
           (Math.abs(square.yCoordinate)- Math.abs(currentSquare.yCoordinate)) <= 1 &&
           square !== currentSquare &&
@@ -40,5 +39,14 @@ Board = {
         }
     });
     return livingNeighbors;
+  },
+  fate: function(element) {
+    var targetSquare = this.spaces[element];
+    var seeds = this.checkNeighbors(element);
+    if (targetSquare.alive === true) {
+      if (seeds === 2 || seeds === 3) {
+        targetSquare.alive === true;
+      }
+    }
   }
 }

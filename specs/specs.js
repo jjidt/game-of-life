@@ -40,5 +40,21 @@ describe("Board", function() {
       testBoard.spaces[18].alive = true;
       testBoard.checkNeighbors(25).should.equal(1);
     });
+    it("checks neighboring squares on wrap around to determine how many of them are living", function() {
+      var testBoard = Board.create(7);
+      testBoard.spaces[0].alive = true;
+      testBoard.spaces[6].alive = true;
+      testBoard.checkNeighbors(48).should.equal(2);
+    });
+  });
+  describe("fate", function() {
+    it("keeps a living square with 2 living neighbors alive in the next round", function(){
+      var testBoard = Board.create(7);
+      testBoard.spaces[17].alive = true;
+      testBoard.spaces[18].alive = true;
+      testBoard.spaces[24].alive = true;
+      testBoard.fate(24);
+      testBoard.spaces[24].alive.should.equal(true);
+    })
   })
 });
