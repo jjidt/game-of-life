@@ -98,4 +98,15 @@ describe("Board", function() {
       testBoard.spaces[24].nextRound.should.equal(false);
     });
   });
+  describe("advanceRound", function(){
+    it("takes the data from last round's analysis and applies living status to the square", function(){
+      var testBoard = Board.create(7);
+      testBoard.spaces[17].alive = true;
+      testBoard.spaces[18].alive = true;
+      testBoard.spaces[17].nextRound = false;
+      testBoard.spaces[18].nextRound = true;
+      testBoard.advanceRound();
+      testBoard.spaces[17].alive.should.equal(false);
+    });
+  });
 });

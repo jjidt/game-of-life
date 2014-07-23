@@ -3,7 +3,6 @@ Square = {
   	this.xCoordinate = x;
   	this.yCoordinate = y;
     this.alive = false;
-    this.nextRound = true;
   },
   create: function(x,y) {
   	var newSquare = Object.create(Square);
@@ -60,57 +59,60 @@ Board = {
     }
   },
   advanceRound: function() {
-    var workingGame = this;
-    for (var i = 0; i < this.spaces.length; i++) {
-      workingGame.spaces[i].alive = workingGame.spaces[i].nextRound;
+    var workingGame = this.spaces;
+    for (var k = 0; k < workingGame.length; k++) {
+      workingGame[k].alive = workingGame[k].nextRound;
     }
   }
 };
 
 $(document).ready(function(){
-  var rowNumber = 21;
+  var rowNumber = 67;
   var gameBoard = Board.create(rowNumber);
   var createCounter = 0;
 
-  for (var i = 0; i < rowNumber; i++) {
-    $("table").append("<tr>");
-    for (var j = 0; j < rowNumber; j++) {
-      $("tr").last().append("<td id=" + createCounter + ">");
-      createCounter += 1;
+  var createTable = function(rowNumber) {
+    for (var i = 0; i < rowNumber; i++) {
+      $("table").append("<tr>");
+      for (var j = 0; j < rowNumber; j++) {
+        $("tr").last().append("<td id=" + createCounter + ">");
+        createCounter += 1;
+      }
     }
   }
 
-  $("td").click(function(){
-    var tileNumber = parseInt($(this).attr("id"));
-    $(this).addClass("alive");
-    gameBoard.spaces[tileNumber].alive = true;
-    console.log(gameBoard.spaces[tileNumber]);
-  });
+  createTable(rowNumber);
 
-  var updateBlocks = function(i) {
-        if (gameBoard.spaces[i].alive === true) {
-          $("#"+i).addClass("alive");
-        }else if (gameBoard.spaces[i].alive === false) {
-          $("#"+i).removeClass("alive");
+  var updateBlocks = function(number) {
+        if (gameBoard.spaces[number].alive === true) {
+          console.log("alive");
+          $("#"+number).css({"background-color": "pink"});
+        }else if (gameBoard.spaces[number].alive === false) {
+          console.log("dead");
+          $("#"+number).css({"background-color": "blue"});
         }
   };
 
-  $("#make-it-so").on("click", function(){
-      for(var i = 0; i < gameBoard.spaces.length; i++) {
-        console.log(gameBoard.spaces[i]);
-        gameBoard.fate(i);
-        gameBoard.advanceRound();
-        updateBlocks(i);
-        console.log (".")
-      }
-  });
-
-  $("#randomize").on("click", function(){
-    for(var i = 0; i < gameBoard.spaces.length; i++) {
-        if (Math.random() > .5) {
-          gameBoard.spaces[i].alive = true;
+  var currentSpaces = gameBoard.spaces;
+  
+  for (var i = 0; i < currentSpaces.length; i++) {
+        if (Math.random() > 0.9) {
+          console.log(i);
+          currentSpaces[i].alive = true;
+        } else {
+          currentSpaces[i].alive = false;
         }
         updateBlocks(i);
-    };
+  }
+
+
+  $("#make-it-so").click(function () {
+    for (var j = 0; j < gameBoard.spaces.length; j++) {
+      gameBoard.fate(j);
+    }
+    gameBoard.advanceRound();
+    for (var m = 0; m < gameBoard.spaces.length; m++) {
+      updateBlocks(m);
+    }
   });
 });
