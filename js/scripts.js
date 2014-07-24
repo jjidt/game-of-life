@@ -5,6 +5,7 @@ Square = {
     this.alive = false;
     this.neighbors = [];
   },
+
   create: function(x,y) {
   	var newSquare = Object.create(Square);
   	newSquare.initialize(x,y);
@@ -28,24 +29,12 @@ Board = {
       this.getNeighbors(k);
     }
   },
+
   create: function(rows) {
     var newBoard = Object.create(Board);
     newBoard.initialize(rows);
     return newBoard;
   },
-  // checkNeighbors: function(element) {
-  //   var livingNeighbors = 0;
-  //   var currentSquare = this.spaces[element];
-  //   this.spaces.forEach(function(square){
-  //     if ((Math.abs(square.xCoordinate)- Math.abs(currentSquare.xCoordinate)) <= 1 &&
-  //         (Math.abs(square.yCoordinate)- Math.abs(currentSquare.yCoordinate)) <= 1 &&
-  //         square !== currentSquare &&
-  //         square.alive === true) {
-  //         livingNeighbors += 1;
-  //       }
-  //   });
-  //   return livingNeighbors;
-  // },
 
   getNeighbors: function(square) {
     var currentSpace = this.spaces[square];
@@ -187,6 +176,7 @@ Board = {
       }
     }
   },
+
   advanceRound: function() {
     var workingGame = this.spaces;
     for (var k = 0; k < workingGame.length; k++) {
