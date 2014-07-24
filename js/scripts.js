@@ -3,10 +3,7 @@ Square = {
   	this.xCoordinate = x;
   	this.yCoordinate = y;
     this.alive = false;
-<<<<<<< HEAD
     this.neighbors = [];
-=======
->>>>>>> cbeee34a156ebfebfcd420fcc6089dbddb423752
   },
   create: function(x,y) {
   	var newSquare = Object.create(Square);
@@ -20,29 +17,22 @@ Board = {
   	this.spaces = [];
     var thisBoard = this;
     var rowHalf = (rows-1)/2;
-<<<<<<< HEAD
     this.rows = rows;
     this.rowHalf = rowHalf;
-=======
->>>>>>> cbeee34a156ebfebfcd420fcc6089dbddb423752
   	for(var i = -rowHalf; i <= rowHalf; i++) {
       for(var j = -rowHalf; j <= rowHalf; j++) {
         thisBoard.spaces.push(Square.create(i,j));
       }
     }
-<<<<<<< HEAD
     for(var k = 0; k <this.spaces.length; k++) {
       this.getNeighbors(k);
     }
-=======
->>>>>>> cbeee34a156ebfebfcd420fcc6089dbddb423752
   },
   create: function(rows) {
     var newBoard = Object.create(Board);
     newBoard.initialize(rows);
     return newBoard;
   },
-<<<<<<< HEAD
   // checkNeighbors: function(element) {
   //   var livingNeighbors = 0;
   //   var currentSquare = this.spaces[element];
@@ -179,21 +169,6 @@ Board = {
     return seedCount;
   },
 
-=======
-  checkNeighbors: function(element) {
-    var livingNeighbors = 0;
-    var currentSquare = this.spaces[element];
-    this.spaces.forEach(function(square){
-      if ((Math.abs(square.xCoordinate)- Math.abs(currentSquare.xCoordinate)) <= 1 &&
-          (Math.abs(square.yCoordinate)- Math.abs(currentSquare.yCoordinate)) <= 1 &&
-          square !== currentSquare &&
-          square.alive === true) {
-          livingNeighbors += 1;
-        }
-    });
-    return livingNeighbors;
-  },
->>>>>>> cbeee34a156ebfebfcd420fcc6089dbddb423752
   fate: function(element) {
     var targetSquare = this.spaces[element];
     var seeds = this.checkNeighbors(element);
@@ -221,11 +196,7 @@ Board = {
 };
 
 $(document).ready(function(){
-<<<<<<< HEAD
   var rowNumber = 111;
-=======
-  var rowNumber = 67;
->>>>>>> cbeee34a156ebfebfcd420fcc6089dbddb423752
   var gameBoard = Board.create(rowNumber);
   var createCounter = 0;
 
@@ -243,31 +214,16 @@ $(document).ready(function(){
 
   var updateBlocks = function(number) {
         if (gameBoard.spaces[number].alive === true) {
-<<<<<<< HEAD
           $("#"+number).addClass("alive");
         }else if (gameBoard.spaces[number].alive === false) {
           $("#"+number).removeClass("alive");
-=======
-          console.log("alive");
-          $("#"+number).css({"background-color": "pink"});
-        }else if (gameBoard.spaces[number].alive === false) {
-          console.log("dead");
-          $("#"+number).css({"background-color": "blue"});
->>>>>>> cbeee34a156ebfebfcd420fcc6089dbddb423752
         }
   };
 
   var currentSpaces = gameBoard.spaces;
-<<<<<<< HEAD
 
   for (var i = 0; i < currentSpaces.length; i++) {
         if (Math.random() > 0.9) {
-=======
-  
-  for (var i = 0; i < currentSpaces.length; i++) {
-        if (Math.random() > 0.9) {
-          console.log(i);
->>>>>>> cbeee34a156ebfebfcd420fcc6089dbddb423752
           currentSpaces[i].alive = true;
         } else {
           currentSpaces[i].alive = false;
@@ -275,7 +231,6 @@ $(document).ready(function(){
         updateBlocks(i);
   }
 
-<<<<<<< HEAD
   var makeItSo = function(){
      for (var j = 0; j < gameBoard.spaces.length; j++) {
         gameBoard.fate(j);
@@ -294,16 +249,3 @@ $(document).ready(function(){
     interval();
   });
 });
-=======
-
-  $("#make-it-so").click(function () {
-    for (var j = 0; j < gameBoard.spaces.length; j++) {
-      gameBoard.fate(j);
-    }
-    gameBoard.advanceRound();
-    for (var m = 0; m < gameBoard.spaces.length; m++) {
-      updateBlocks(m);
-    }
-  });
-});
->>>>>>> cbeee34a156ebfebfcd420fcc6089dbddb423752
