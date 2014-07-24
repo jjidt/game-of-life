@@ -30,6 +30,7 @@ describe("Board", function() {
   });
   describe("create", function() {
     it("creates a new Board object", function() {
+<<<<<<< HEAD
       var testBoard = Board.create(7);
       Board.isPrototypeOf(testBoard).should.equal(true);
     });
@@ -68,6 +69,25 @@ describe("Board", function() {
   //     testBoard.checkNeighbors(48).should.equal(2);
   //   });
   // });
+=======
+      var testBoard = Board.create();
+      Board.isPrototypeOf(testBoard).should.equal(true);
+    });
+  });
+  describe("checkNeighbors", function() {
+    it("checks neighboring squares to determine how many of them are living", function() {
+      var testBoard = Board.create(7);
+      testBoard.spaces[18].alive = true;
+      testBoard.checkNeighbors(25).should.equal(1);
+    });
+    it("checks neighboring squares on wrap around to determine how many of them are living", function() {
+      var testBoard = Board.create(7);
+      testBoard.spaces[0].alive = true;
+      testBoard.spaces[6].alive = true;
+      testBoard.checkNeighbors(48).should.equal(2);
+    });
+  });
+>>>>>>> cbeee34a156ebfebfcd420fcc6089dbddb423752
   describe("fate", function() {
     it("keeps a living square with 2 living neighbors alive in the next round", function(){
       var testBoard = Board.create(7);
