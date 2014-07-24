@@ -111,6 +111,26 @@ Board = {
                    currentY-1 === targetY)) {
             currentSpace.neighbors.push(targetSpace);
           }
+        } else
+        { //space is landlocked
+          if(currentX -1 === targetX) {
+            if(currentY -1 === targetY ||
+               currentY === targetY ||
+               currentY +1 === targetY) {
+              currentSpace.neighbors.push(targetSpace);
+            }
+          } else if(currentX +1 === targetX) {
+            if(currentY -1 === targetY ||
+               currentY === targetY ||
+               currentY +1 === targetY) {
+              currentSpace.neighbors.push(targetSpace);
+            }
+          } else if(currentX === targetX) {
+            if(currentY -1 === targetY ||
+               currentY +1 === targetY) {
+              currentSpace.neighbors.push(targetSpace);
+            }
+          }
         }
       }
     }

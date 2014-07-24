@@ -46,6 +46,12 @@ describe("Board", function() {
       testBoard.getNeighbors(1);
       testBoard.spaces[1].neighbors.length.should.equal(8);
     });
+
+    it("takes a land-locked space and creates the neighbors", function() {
+      var testBoard = Board.create(5);
+      testBoard.getNeighbors(6);
+      testBoard.spaces[6].neighbors.length.should.equal(8);
+    })
   });
   // describe("checkNeighbors", function() {
   //   it("checks neighboring squares to determine how many of them are living", function() {
