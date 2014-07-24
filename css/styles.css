@@ -1,3 +1,12 @@
+body {
+  background-color: gray;
+  margin:0 auto;
+}
+
+button {
+  margin-top: -10px;
+}
+
 table {
   height: 900px;
   width: 100%;
@@ -10,8 +19,13 @@ td {
   width: 5px;
   margin: 0;
   padding: 0;
+  background-color: black;
 }
 
 .alive {
-  background-color: black;
+  background-color: #FF00FF;
+}
+
+input {
+  width: 300px;
 }

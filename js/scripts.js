@@ -54,7 +54,6 @@ Board = {
     var currentXAbs = Math.abs(currentX);
     var currentYAbs = Math.abs(currentY);
     var currentIndex = square;
-
     var targetX;
     var targetY;
     var targetIndex;
@@ -158,7 +157,6 @@ Board = {
         }
       }
     }
-    console.log(currentSpace);
   },
 
   checkNeighbors: function(spaceIndex) {
@@ -198,7 +196,7 @@ Board = {
 };
 
 $(document).ready(function(){
-  var rowNumber = 67;
+  var rowNumber = 111;
   var gameBoard = Board.create(rowNumber);
   var createCounter = 0;
 
@@ -216,11 +214,9 @@ $(document).ready(function(){
 
   var updateBlocks = function(number) {
         if (gameBoard.spaces[number].alive === true) {
-          console.log("alive");
-          $("#"+number).css({"background-color": "pink"});
+          $("#"+number).addClass("alive");
         }else if (gameBoard.spaces[number].alive === false) {
-          console.log("dead");
-          $("#"+number).css({"background-color": "blue"});
+          $("#"+number).removeClass("alive");
         }
   };
 
@@ -228,7 +224,6 @@ $(document).ready(function(){
 
   for (var i = 0; i < currentSpaces.length; i++) {
         if (Math.random() > 0.9) {
-          console.log(i);
           currentSpaces[i].alive = true;
         } else {
           currentSpaces[i].alive = false;
@@ -236,14 +231,21 @@ $(document).ready(function(){
         updateBlocks(i);
   }
 
+  var makeItSo = function(){
+     for (var j = 0; j < gameBoard.spaces.length; j++) {
+        gameBoard.fate(j);
+      }
+      gameBoard.advanceRound();
+      for (var m = 0; m < gameBoard.spaces.length; m++) {
+        updateBlocks(m);
+      }
+  };
 
-  $("#make-it-so").click(function () {
-    for (var j = 0; j < gameBoard.spaces.length; j++) {
-      gameBoard.fate(j);
-    }
-    gameBoard.advanceRound();
-    for (var m = 0; m < gameBoard.spaces.length; m++) {
-      updateBlocks(m);
-    }
+  var interval = function() {
+    setInterval(function(){makeItSo()}, 0);
+  };
+
+  $("#make-it-so").click(function() {
+    interval();
   });
 });
