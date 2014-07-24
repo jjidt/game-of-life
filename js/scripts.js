@@ -24,6 +24,9 @@ Board = {
         thisBoard.spaces.push(Square.create(i,j));
       }
     }
+    for(var k = 0; k <this.spaces.length; k++) {
+      this.getNeighbors(k);
+    }
   },
   create: function(rows) {
     var newBoard = Object.create(Board);
@@ -110,7 +113,28 @@ Board = {
                   (currentY+1 === targetY ||
                    currentY-1 === targetY)) {
             currentSpace.neighbors.push(targetSpace);
+          }//currentSpace is a left or right side edge piece
+        } else if(currentYAbs === this.rowHalf) {
+                //horizontal matches
+          if(currentY === targetY && (currentX+1 === targetX || currentX-1 ===targetX)) {
+            currentSpace.neighbors.push(targetSpace);
+          }     //vertical matches
+          else if(currentX === targetX && (currentY+1 === targetY || currentY-1 ===targetY || -currentY ===targetY)) {
+            currentSpace.neighbors.push(targetSpace);
+          }     //diagonal matches
+          else if((currentY +1 === targetY && currentX +1 === targetX) ||
+             (currentX -1 === targetY && currentX -1 === targetX) ||
+             (currentX -1 === targetY && currentY +1 === targetX) ||
+             (currentX +1 === targetY && currentY -1 === targetX)
+             ){
+            currentSpace.neighbors.push(targetSpace);
+          }     //wrap diagonals
+          else if((-currentY === targetY) &&
+                  (currentX+1 === targetX ||
+                   currentX-1 === targetX)) {
+            currentSpace.neighbors.push(targetSpace);
           }
+
         } else
         { //space is landlocked
           if(currentX -1 === targetX) {
@@ -135,6 +159,16 @@ Board = {
       }
     }
     console.log(currentSpace);
+  },
+
+  checkNeighbors: function(spaceIndex) {
+    var seedCount = 0;
+    this.spaces[spaceIndex].neighbors.forEach(function(i){
+      if(i.alive) {
+        seedCount += 1.;
+      }
+    });
+    return seedCount;
   },
 
   fate: function(element) {

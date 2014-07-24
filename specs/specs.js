@@ -37,19 +37,21 @@ describe("Board", function() {
   describe("getNeighbors", function() {
     it("takes a corner piece and creates a neighbors property containing an array of neighboring squares", function() {
       var testBoard = Board.create(5);
-      testBoard.getNeighbors(0);
       testBoard.spaces[0].neighbors.length.should.equal(8);
     });
 
     it("takes a non-corner edge piece and creates a neighbors property containing an array of neighboring squares", function() {
       var testBoard = Board.create(5);
-      testBoard.getNeighbors(1);
       testBoard.spaces[1].neighbors.length.should.equal(8);
     });
 
+    it("takes a right side edge piece and creates a neighbors property containing an array of neighboring squares", function() {
+      var testBoard = Board.create(5);
+      testBoard.spaces[14].neighbors.length.should.equal(8);
+    })
+
     it("takes a land-locked space and creates the neighbors", function() {
       var testBoard = Board.create(5);
-      testBoard.getNeighbors(6);
       testBoard.spaces[6].neighbors.length.should.equal(8);
     })
   });
