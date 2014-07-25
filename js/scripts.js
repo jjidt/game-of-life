@@ -249,8 +249,13 @@ $(document).ready(function(){
       }
   };
 
+  var setIntervalId;
+
   var interval = function() {
-    setInterval(function(){makeItSo()}, 0);
+    var setIntervalID = setInterval(function(){makeItSo()}, 0);
+    $("#stop").click(function() {
+      clearInterval(setIntervalID);
+    }); 
   };
 
   $("#make-it-so").click(function() {
