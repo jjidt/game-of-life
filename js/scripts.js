@@ -213,12 +213,24 @@ $(document).ready(function(){
   var currentSpaces = gameBoard.spaces;
   var poolSize;
   var index;
+  var isDown;
+
+  $("body").mousedown(function(){
+    isDown = true;
+  });
+
+   $("body").mouseup(function(){
+    isDown = false;
+  });
 
   $("td").mouseover(function() {
     index = $(this).attr("id");
-    currentSpaces[index].alive = true;
-    updateBlocks(index);
+    if(isDown) {
+      currentSpaces[index].alive = true;
+      updateBlocks(index);
+    };
   });
+  
 
   $("#random").click(function() {
     poolSize = parseFloat($("#pool").val());

@@ -1,3 +1,7 @@
+body *{
+  cursor: default;
+}
+
 body {
   background-color: gray;
   margin:0 auto;
