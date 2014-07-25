@@ -212,14 +212,16 @@ $(document).ready(function(){
 
   var currentSpaces = gameBoard.spaces;
 
-  for (var i = 0; i < currentSpaces.length; i++) {
-        if (Math.random() > 0.9) {
-          currentSpaces[i].alive = true;
-        } else {
-          currentSpaces[i].alive = false;
-        }
-        updateBlocks(i);
-  }
+  $("#random").click(function() {
+    for (var i = 0; i < currentSpaces.length; i++) {
+          if (Math.random() > 0.9) {
+            currentSpaces[i].alive = true;
+          } else {
+            currentSpaces[i].alive = false;
+          }
+          updateBlocks(i);
+    }
+  });
 
   var makeItSo = function(){
      for (var j = 0; j < gameBoard.spaces.length; j++) {
