@@ -211,16 +211,32 @@ $(document).ready(function(){
   };
 
   var currentSpaces = gameBoard.spaces;
+  var poolSize;
+  var index;
+
+  $("td").mouseover(function() {
+    index = $(this).attr("id");
+    currentSpaces[index].alive = true;
+    updateBlocks(index);
+  });
 
   $("#random").click(function() {
+    poolSize = parseFloat($("#pool").val());
     for (var i = 0; i < currentSpaces.length; i++) {
-          if (Math.random() > 0.9) {
+          if (Math.random() < poolSize) {
             currentSpaces[i].alive = true;
           } else {
             currentSpaces[i].alive = false;
           }
           updateBlocks(i);
     }
+  });
+
+  $("#clear").click(function() {
+    for (var n = 0; n < gameBoard.spaces.length; n++) {
+      gameBoard.spaces[n].alive = false;
+      updateBlocks(n);
+    };
   });
 
   var makeItSo = function(){

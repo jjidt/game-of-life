@@ -1,6 +1,7 @@
 body {
   background-color: gray;
   margin:0 auto;
+  font-family: cursive;
 }
 
 button {
@@ -27,5 +28,6 @@ td {
 }
 
 input {
-  width: 300px;
+  width: 40px;
+  border-radius: 20%;
 }
